@@ -2,13 +2,13 @@ import os
 import mysql.connector
 from mysql.connector import Error
 
-def insert_clients_in_bulk(df, course_id, table_name='clients'):
+def insert_clients_in_bulk(df, table_name='clients'):
     connection = None
     cursor = None
 
     try:
 
-        #df['course_id'] = course_id
+        
         
         connection = mysql.connector.connect(
             host=os.getenv("DB_HOST"),

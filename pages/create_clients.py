@@ -51,7 +51,7 @@ if submit:
 
             cursor.close()
 
-            st.write("The course has been successfully saved")
+            st.write("The client has been successfully saved")
 
     except Error as e:
         st.error(f"Error connecting to database:{str(e)}")

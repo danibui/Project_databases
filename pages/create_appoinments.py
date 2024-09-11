@@ -33,7 +33,7 @@ if submit:
             cursor = connection.cursor(dictionary=True)
 
             query = """
-            INSERT INTO clients (id_appointments, id_client, full_name, appointment_date, treatment, name_dentist, payment)
+            INSERT INTO dental_appointments (id_appointments, id_client, full_name, appointment_date, treatment, name_dentist, payment)
             VALUES (%s, %s, %s, %s, %s, %s, %s)
             """
 
@@ -44,8 +44,7 @@ if submit:
                 appointment_date,
                 treatment,
                 name_dentist,
-                payment,
-                submit
+                payment
             )
 
             cursor.execute(query, values)
