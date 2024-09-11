@@ -5,10 +5,11 @@ from clients_db_helper import insert_clients_in_bulk
 
 st.title("Upload students")
 
-def extract_students_from_excel(excel_file, course_id):
+def extract_students_from_excel(excel_file, excel_file_2, course_id):
     """Extracts student information from the provided Excel file."""
     try:
         df = pd.read_excel(excel_file)
+        dfAppoinnmets = pd.read_excel(excel_file_2)
         st.write("Excel file loaded successfully")
     except Exception as e:
         st.write(f"Error reading the Excel file: {e}")
@@ -32,7 +33,7 @@ def extract_students_from_excel(excel_file, course_id):
     insert_clients_in_bulk(df, course_id, table_name='clients')
     
     st.write(df)
-
+    st.write(dfAppoinnmets)
 # Obtener los cursos
 courses = get_all_the_appoinments()
 
@@ -44,12 +45,15 @@ course_ids = list(course_dict.keys())
 selected_course_id = st.selectbox("Select a course", course_ids, format_func=lambda id: course_dict[id])
 
 # Subir el archivo de Excel
-uploaded_file = st.file_uploader("Attendance list Excel file", type=["xls", "xlsx"])
+uploaded_file = st.file_uploader("Attendance list Excel file", type=["xls", "xlsx"], key="fileClients")
+
+# Subir el archivo de Excel
+uploaded_file_2 = st.file_uploader("Attendance list Excel file", type=["xls", "xlsx"], key="fileApponments")
 
 # Botón para procesar la carga y mostrar los valores
 if st.button("Save students"):
     if uploaded_file is not None:
-        extract_students_from_excel(uploaded_file, selected_course_id)
+        extract_students_from_excel(uploaded_file, uploaded_file_2, selected_course_id)
         st.write("Students have been created successfully")
     else:
         st.write("Please upload an Excel file.")
